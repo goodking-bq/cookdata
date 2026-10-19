@@ -22,9 +22,9 @@ the app binary** — a broken publish must never be able to black-screen the app
 // manifest.json
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.10.19.3",
-  "tag": "v2026.10.19.3",
-  "dishCount": 7,
+  "contentVersion": "2026.10.19.8",
+  "tag": "v2026.10.19.8",
+  "dishCount": 200,
   "dishesFile": "dishes.json"
 }
 ```
@@ -44,9 +44,19 @@ the app binary** — a broken publish must never be able to black-screen the app
 
 `contentVersion` format: `YYYY.MM.DD.N` (N resets each day).
 
-The app compares for **inequality**, not "greater than". That is deliberate: it makes a
-rollback work. If a bad publish goes out and you republish the previous version, the app
-must follow it back down.
+The app compares **segment by segment as integers** (`2026.10.19.10 > 2026.10.19.9`) and
+**refuses to move backwards**. A remote version older than the local one is dropped with
+`downgradeIgnored` and the local catalog stays.
+
+This is not hypothetical. It was a real incident: the bundled snapshot was rolled back to
+v4 while the CDN still served a v3 manifest, and a naive "just download whatever manifest
+says" client downgraded every device.
+
+Consequence for operators: **you cannot roll back by lowering the version number.** Rolling
+back means publishing a *new* version that carries the *old* content.
+
+Also: the built-in snapshot wins when it is newer than the cached copy, so an app update
+that ships fresher content invalidates the cache instead of being overwritten by it.
 
 ## Publishing
 
@@ -64,6 +74,33 @@ drop the update.
 Do not hand-edit a publish that is already live. Publishing a new version is always cheaper
 than debugging a mutated one, because clients that already synced cannot be un-synced.
 
+## Images
+
+Dish photos live at `images/<dish-id>.jpg` and are **served from `main`, not from the
+tag**. This asymmetry with `dishes.json` is deliberate:
+
+- The catalog must match its version exactly — new content with stale photos is a lie.
+- Photos must *not*. A tag-pinned image URL guarantees one broken case: an app whose
+  bundled snapshot is still `v6` asks for `v6/images/x.jpg` while the photo only shipped
+  with `v7` → 404, and the user sees a recipe with no picture until the next content sync.
+- Adding photos is purely additive. Branch-pinned URLs only pay the CDN's ~5 minute
+  propagation, which is harmless.
+
+So: `scripts/publish.sh` **never** touches `images/`. Commit and push photos separately.
+
+```bash
+scripts/import_image.sh <source.png> <dish-id>   # crop watermark → 1200px → JPEG q78
+git add images && git commit -m "images: ..." && git push
+```
+
+`import_image.sh` performs three non-optional steps: crop the bottom ~15.6% (the generator
+stamps a watermark there), downscale to 1200px wide, and convert to JPEG q78 — that last
+one takes 200 photos from ~400 MB PNG to ~36 MB.
+
+Any dish may legitimately have no photo. The app renders a region-tinted placeholder, so a
+missing image is a cosmetic gap, never an error. Do not point several dish ids at one file
+to "fill" coverage.
+
 ## Identifiers are a public contract
 
 `dish.id`, ingredient ids and equipment ids are baked into user data (pantry, saved,
@@ -74,4 +111,5 @@ Only ever **add**; deprecate by keeping the id and hiding the dish, never by ren
 
 - Secrets, tokens, signing keys.
 - User data or anything per-install.
-- Images at first: they bloat the catalog and should be fetched lazily by URL, not inlined.
+- Image bytes inlined into `dishes.json`. Photos are fetched lazily by URL; base64 inlining
+  would make every cold start download the entire photo library.

@@ -46,7 +46,7 @@ fi
 
 if [ "$TARGET_VERSION" = "$CURRENT_VERSION" ]; then
   echo "refusing to publish: version would stay at $CURRENT_VERSION" >&2
-  echo "clients compare versions for inequality, so republishing the same version reaches nobody." >&2
+  echo "clients only update when the version moves forward, so republishing the same version reaches nobody." >&2
   exit 1
 fi
 
