@@ -18,13 +18,27 @@ the app binary** — a broken publish must never be able to black-screen the app
 
 ## Files
 
-| File | Owner | Rules |
-|---|---|---|
-| `dishes.json` | content | `schemaVersion` must match an app that understands it. `contentVersion` must change on **every** publish. |
-| `manifest.json` | publishing | Mirrors `contentVersion` + `dishCount` from `dishes.json`. Must not drift. |
+```json
+// manifest.json
+{
+  "schemaVersion": 1,
+  "contentVersion": "2026.10.19.3",
+  "tag": "v2026.10.19.3",
+  "dishCount": 7,
+  "dishesFile": "dishes.json"
+}
+```
 
-`dishCount` exists so the app can reject a truncated catalog before decoding it, and so a
-human can eyeball "did all 100 dishes actually ship".
+| Field | Why it exists |
+|---|---|
+| `schemaVersion` | An old app must refuse a newer structure instead of decoding half a recipe. |
+| `contentVersion` | The only thing the app compares to decide whether to download at all. |
+| `tag` | The immutable URL the catalog is fetched from. **Must equal `v` + `contentVersion`** — the app rejects the publish otherwise. |
+| `dishCount` | Catches a half-pushed catalog. The app refuses to persist a download whose size disagrees. |
+| `dishesFile` | Bare filename only. Anything containing `/`, `..` or `:` is rejected as URL injection. |
+
+`manifest.json` is **generated, never hand-edited**. Every field is a derivative of
+`dishes.json`, and hand-maintaining derivatives is exactly how the two drift apart.
 
 ## Versioning
 
@@ -34,11 +48,18 @@ The app compares for **inequality**, not "greater than". That is deliberate: it 
 rollback work. If a bad publish goes out and you republish the previous version, the app
 must follow it back down.
 
-## Adding or editing dishes
+## Publishing
 
-1. Edit `dishes.json`.
-2. Bump `contentVersion` and `dishCount` to match.
-3. Commit, tag `v<contentVersion>`, push.
+```bash
+scripts/publish.sh                 # bump the day's counter and publish
+scripts/publish.sh 2026.10.20.1    # publish an explicit version
+scripts/publish.sh --dry-run       # regenerate manifest, print it, commit nothing
+```
+
+The script rewrites `manifest.json` from `dishes.json`, refuses duplicate ids and empty
+catalogs, then commits, tags and pushes both. Tag and manifest always move together —
+pushing a tag the manifest does not name (or the reverse) makes every client silently
+drop the update.
 
 Do not hand-edit a publish that is already live. Publishing a new version is always cheaper
 than debugging a mutated one, because clients that already synced cannot be un-synced.
