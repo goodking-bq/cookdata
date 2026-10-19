@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.10.19.3",
+  "contentVersion": "2026.10.19.4",
   "dishes": [
     {
       "id": "egg_fried_rice",
-      "nameEn": "Golden Egg Fried Rice",
+      "nameEn": "Egg Fried Rice",
       "nameZh": "蛋炒饭",
       "region": "Home-style",
       "difficulty": 1,
