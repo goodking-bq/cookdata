@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.10.19.2",
+  "contentVersion": "2026.10.19.3",
   "dishes": [
     {
       "id": "egg_fried_rice",
@@ -10,16 +10,32 @@
       "difficulty": 1,
       "timeMin": 10,
       "spiceLevel": 0,
-      "requiredEquipment": ["frying_pan", "gas_stove"],
-      "requiredIngredients": ["rice", "egg", "cooking_oil", "salt"],
-      "optionalIngredients": ["scallion", "light_soy_sauce"],
+      "requiredEquipment": [
+        "frying_pan",
+        "gas_stove"
+      ],
+      "requiredIngredients": [
+        "rice",
+        "egg",
+        "cooking_oil",
+        "salt"
+      ],
+      "optionalIngredients": [
+        "scallion",
+        "light_soy_sauce"
+      ],
       "substitutes": {
         "frying_pan": {
-          "requires": ["wok", "gas_stove"],
+          "requires": [
+            "wok",
+            "gas_stove"
+          ],
           "hint": "A wok is even better here — keep it screaming hot and toss instead of stirring."
         },
         "gas_stove": {
-          "requires": ["induction"],
+          "requires": [
+            "induction"
+          ],
           "hint": "Induction works; heat the pan dry for a full minute first so the rice sears instead of sweating."
         }
       },
@@ -39,16 +55,34 @@
       "difficulty": 2,
       "timeMin": 25,
       "spiceLevel": 2,
-      "requiredEquipment": ["wok", "gas_stove"],
-      "requiredIngredients": ["chicken_thigh", "dried_chili", "light_soy_sauce", "cornstarch", "cooking_oil"],
-      "optionalIngredients": ["scallion", "garlic", "sichuan_peppercorn"],
+      "requiredEquipment": [
+        "wok",
+        "gas_stove"
+      ],
+      "requiredIngredients": [
+        "chicken_thigh",
+        "dried_chili",
+        "light_soy_sauce",
+        "cornstarch",
+        "cooking_oil"
+      ],
+      "optionalIngredients": [
+        "scallion",
+        "garlic",
+        "sichuan_peppercorn"
+      ],
       "substitutes": {
         "wok": {
-          "requires": ["frying_pan", "gas_stove"],
+          "requires": [
+            "frying_pan",
+            "gas_stove"
+          ],
           "hint": "No wok? Use a large skillet over the highest heat your stove gives — work in two batches so the chicken sears instead of steaming."
         },
         "dried_chili": {
-          "requires": ["black_pepper"],
+          "requires": [
+            "black_pepper"
+          ],
           "hint": "No dried chilies? Swap in 1/2 tsp red pepper flakes with a pinch of black pepper."
         }
       },
@@ -68,16 +102,32 @@
       "difficulty": 1,
       "timeMin": 12,
       "spiceLevel": 0,
-      "requiredEquipment": ["frying_pan", "gas_stove"],
-      "requiredIngredients": ["tomato", "egg", "sugar", "salt", "cooking_oil"],
-      "optionalIngredients": ["scallion"],
+      "requiredEquipment": [
+        "frying_pan",
+        "gas_stove"
+      ],
+      "requiredIngredients": [
+        "tomato",
+        "egg",
+        "sugar",
+        "salt",
+        "cooking_oil"
+      ],
+      "optionalIngredients": [
+        "scallion"
+      ],
       "substitutes": {
         "frying_pan": {
-          "requires": ["wok", "gas_stove"],
+          "requires": [
+            "wok",
+            "gas_stove"
+          ],
           "hint": "A wok works too — just keep the heat slightly lower so the eggs don't catch."
         },
         "gas_stove": {
-          "requires": ["induction"],
+          "requires": [
+            "induction"
+          ],
           "hint": "An induction cooktop works fine; give the pan an extra minute to come up to temperature."
         }
       },
@@ -97,16 +147,34 @@
       "difficulty": 2,
       "timeMin": 20,
       "spiceLevel": 3,
-      "requiredEquipment": ["wok", "gas_stove"],
-      "requiredIngredients": ["firm_tofu", "minced_pork", "doubanjiang", "sichuan_peppercorn", "cornstarch", "garlic", "scallion"],
-      "optionalIngredients": ["fermented_tofu"],
+      "requiredEquipment": [
+        "wok",
+        "gas_stove"
+      ],
+      "requiredIngredients": [
+        "firm_tofu",
+        "minced_pork",
+        "doubanjiang",
+        "sichuan_peppercorn",
+        "cornstarch",
+        "garlic",
+        "scallion"
+      ],
+      "optionalIngredients": [
+        "fermented_tofu"
+      ],
       "substitutes": {
         "wok": {
-          "requires": ["frying_pan", "gas_stove"],
+          "requires": [
+            "frying_pan",
+            "gas_stove"
+          ],
           "hint": "A deep skillet works; stir more gently so the tofu cubes stay whole."
         },
         "minced_pork": {
-          "requires": ["beef_sirloin"],
+          "requires": [
+            "beef_sirloin"
+          ],
           "hint": "No pork? Finely chop beef sirloin, or skip the meat entirely for a vegetarian version."
         }
       },
@@ -126,16 +194,31 @@
       "difficulty": 1,
       "timeMin": 10,
       "spiceLevel": 0,
-      "requiredEquipment": ["frying_pan", "gas_stove"],
-      "requiredIngredients": ["broccoli", "garlic", "cooking_oil", "salt"],
-      "optionalIngredients": ["oyster_sauce"],
+      "requiredEquipment": [
+        "frying_pan",
+        "gas_stove"
+      ],
+      "requiredIngredients": [
+        "broccoli",
+        "garlic",
+        "cooking_oil",
+        "salt"
+      ],
+      "optionalIngredients": [
+        "oyster_sauce"
+      ],
       "substitutes": {
         "frying_pan": {
-          "requires": ["stockpot", "gas_stove"],
+          "requires": [
+            "stockpot",
+            "gas_stove"
+          ],
           "hint": "No skillet? Blanch in a pot and finish with a garlic-oil drizzle."
         },
         "gas_stove": {
-          "requires": ["electric_hob"],
+          "requires": [
+            "electric_hob"
+          ],
           "hint": "An electric hob works; expect an extra minute to get things sizzling."
         }
       },
@@ -155,12 +238,26 @@
       "difficulty": 1,
       "timeMin": 15,
       "spiceLevel": 0,
-      "requiredEquipment": ["steamer_pot", "gas_stove"],
-      "requiredIngredients": ["egg", "salt", "light_soy_sauce"],
-      "optionalIngredients": ["scallion", "sesame_oil"],
+      "requiredEquipment": [
+        "steamer_pot",
+        "gas_stove"
+      ],
+      "requiredIngredients": [
+        "egg",
+        "salt",
+        "light_soy_sauce"
+      ],
+      "optionalIngredients": [
+        "scallion",
+        "sesame_oil"
+      ],
       "substitutes": {
         "steamer_pot": {
-          "requires": ["steaming_rack", "stockpot", "gas_stove"],
+          "requires": [
+            "steaming_rack",
+            "stockpot",
+            "gas_stove"
+          ],
           "hint": "No steamer? Set a steaming rack inside a deep pot with 1 inch of simmering water, cover with a lid, and steam in a heatproof bowl."
         }
       },
@@ -179,12 +276,27 @@
       "difficulty": 3,
       "timeMin": 90,
       "spiceLevel": 0,
-      "requiredEquipment": ["clay_pot", "gas_stove"],
-      "requiredIngredients": ["pork_belly", "dark_soy_sauce", "shaoxing_wine", "sugar", "ginger", "star_anise"],
-      "optionalIngredients": ["scallion"],
+      "requiredEquipment": [
+        "clay_pot",
+        "gas_stove"
+      ],
+      "requiredIngredients": [
+        "pork_belly",
+        "dark_soy_sauce",
+        "shaoxing_wine",
+        "sugar",
+        "ginger",
+        "star_anise"
+      ],
+      "optionalIngredients": [
+        "scallion"
+      ],
       "substitutes": {
         "clay_pot": {
-          "requires": ["stockpot", "gas_stove"],
+          "requires": [
+            "stockpot",
+            "gas_stove"
+          ],
           "hint": "No clay pot? A heavy-bottomed stockpot with the lid on gives nearly the same result — just check the liquid every 20 minutes."
         }
       },

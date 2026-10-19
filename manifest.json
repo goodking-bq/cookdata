@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.10.19.2",
+  "contentVersion": "2026.10.19.3",
+  "tag": "v2026.10.19.3",
   "dishCount": 7,
   "dishesFile": "dishes.json"
 }
