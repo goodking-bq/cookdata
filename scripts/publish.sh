@@ -104,6 +104,13 @@ fi
 
 # 4) 提交 + 打标签 + 推送。**标签必须与 manifest 同时推**：
 #    App 拉 manifest 里声明的 tag 路径，标签没推上去就会 404 → 整次更新被丢弃。
+#
+#    **图片刻意不进这个提交**。配图走 main 分支的 images/，与内容版本解耦：
+#    内容必须版本严对应（新内容配旧图 = 张冠李戴），图片则是纯加法，且
+#    按 tag 取图必然出一次错配——App 内置快照停在 v6 而图片随 v7 才加，
+#    就会去取 v6/images/x.jpg 得 404，用户看到「有菜没图」。
+#    详见 WokItCore/Catalog/CatalogManifest.swift 里 imageURL 的说明。
+#    加图请单独提交（git add images），不要混进内容发布。
 git add dishes.json manifest.json
 git commit -q -m "content: v$TARGET_VERSION ($DISH_COUNT dishes)"
 git tag -f "v$TARGET_VERSION"
